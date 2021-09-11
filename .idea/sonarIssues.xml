@@ -13,6 +13,21 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/lazypotato/flickrgallery/data/model/FlickrFeedResponse.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/lazypotato/flickrgallery/data/model/FlickrPhoto.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/lazypotato/flickrgallery/data/model/Media.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/lazypotato/flickrgallery/ui/MainActivity.kt">
           <value>
             <set />
