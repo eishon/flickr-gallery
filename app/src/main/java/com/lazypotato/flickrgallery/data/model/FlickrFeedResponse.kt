@@ -1,5 +1,8 @@
 package com.lazypotato.flickrgallery.data.model
 
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class FlickrFeedResponse (
     val title: String,
     val link: String,

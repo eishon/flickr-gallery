@@ -1,5 +1,8 @@
 package com.lazypotato.flickrgallery.data.model
 
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class FlickrPhoto(
     val title: String,
     val link: String,
@@ -12,4 +15,5 @@ data class FlickrPhoto(
     val tags: String,
 )
 
+@Parcelize
 data class Media (val m: String)
