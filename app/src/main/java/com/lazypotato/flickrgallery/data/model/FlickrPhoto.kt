@@ -1,5 +1,6 @@
 package com.lazypotato.flickrgallery.data.model
 
+import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -13,7 +14,12 @@ data class FlickrPhoto(
     val author: String,
     val author_id: String,
     val tags: String,
-)
+) : Parcelable {
 
-@Parcelize
-data class Media (val m: String)
+    @Parcelize
+    data class Media (val m: String) : Parcelable
+
+}
+
+
+

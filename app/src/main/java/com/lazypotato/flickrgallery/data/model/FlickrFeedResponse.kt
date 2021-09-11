@@ -1,5 +1,6 @@
 package com.lazypotato.flickrgallery.data.model
 
+import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -10,4 +11,4 @@ data class FlickrFeedResponse (
     val modified: String,
     val generator: String,
     val items: List<FlickrPhoto>,
-)
+) : Parcelable
