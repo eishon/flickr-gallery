@@ -11,3 +11,5 @@ data class FlickrPhoto(
     val author_id: String,
     val tags: String,
 )
+
+data class Media (val m: String)
