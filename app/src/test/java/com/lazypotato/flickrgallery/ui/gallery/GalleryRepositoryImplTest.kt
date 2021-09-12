@@ -33,7 +33,7 @@ class GalleryRepositoryImplTest {
         mockSuccessfulCase()
 
         repository.fetchPhotosUsingTag(tags).collect {
-            assertEquals(it.getOrNull(), photos)
+            assertEquals(it.getOrDefault(listOf()), photos)
         }
     }
 

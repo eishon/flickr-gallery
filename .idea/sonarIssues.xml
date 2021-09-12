@@ -73,6 +73,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/lazypotato/flickrgallery/ui/gallery/GalleryViewModel.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/lazypotato/flickrgallery/ui/gallery/GalleryViewModelFactory.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/lazypotato/flickrgallery/util/DateTimeUtil.kt">
           <value>
             <set />
@@ -114,6 +124,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/layout/photo_item_layout.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/menu/search.xml">
           <value>
             <set />
           </value>
@@ -193,7 +208,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/com/lazypotato/flickrgallery/ui/gallery/GalleryViewModelTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/test/java/com/lazypotato/flickrgallery/util/BaseUnitTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/test/java/com/lazypotato/flickrgallery/util/LiveDataTestExtensions.kt">
           <value>
             <set />
           </value>
