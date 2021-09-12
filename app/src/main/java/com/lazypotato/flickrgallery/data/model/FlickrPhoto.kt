@@ -1,6 +1,7 @@
 package com.lazypotato.flickrgallery.data.model
 
 import android.os.Parcelable
+import com.lazypotato.flickrgallery.util.DateTimeUtil
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -14,6 +15,8 @@ data class FlickrPhoto(
     val author: String,
     val author_id: String,
     val tags: String,
+    var dateTakenMillis: Long,
+    var publishedMillis: Long
 ) : Parcelable {
 
     @Parcelize

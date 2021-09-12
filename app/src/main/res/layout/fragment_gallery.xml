@@ -6,6 +6,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.gallery.GalleryFragment" >
 
+    <Button
+        android:id="@+id/sortButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Sort by Publish Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/gallery_recycler_view"
         android:layout_width="0dp"
@@ -14,7 +25,7 @@
         app:layout_constraintBottom_toTopOf="@+id/progress_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sortButton"
         tools:listitem="@layout/photo_item_layout">
 
     </androidx.recyclerview.widget.RecyclerView>

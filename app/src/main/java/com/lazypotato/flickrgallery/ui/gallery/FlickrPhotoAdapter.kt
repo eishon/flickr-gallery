@@ -33,6 +33,20 @@ class FlickrPhotoAdapter constructor(
         get() = differ.currentList
         set(value) = differ.submitList(value)
 
+    fun sortPhotos(sort: Sort) {
+        val photoList = photos.sortedWith(
+            compareBy {
+                if (sort == Sort.DATE_TAKEN) {
+                    it.dateTakenMillis
+                } else {
+                    it.publishedMillis
+                }
+            }
+        )
+
+        differ.submitList(photoList)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FlickrPhotoViewHolder {
         val binding = PhotoItemLayoutBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
@@ -41,11 +55,10 @@ class FlickrPhotoAdapter constructor(
     }
 
 
-
     override fun onBindViewHolder(holder: FlickrPhotoViewHolder, position: Int) {
         val photo = photos[position]
 
-        if(photo != null) {
+        if (photo != null) {
             holder.bind(glide, photo, listener)
         }
     }
@@ -57,27 +70,27 @@ class FlickrPhotoAdapter constructor(
     class FlickrPhotoViewHolder(private val binding: PhotoItemLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-            fun bind(
-                glide: RequestManager,
-                photo: FlickrPhoto,
-                listener: OnItemClickListener,
-            ) {
-                glide.load(photo.media.m).into(binding.imageView)
+        fun bind(
+            glide: RequestManager,
+            photo: FlickrPhoto,
+            listener: OnItemClickListener,
+        ) {
+            glide.load(photo.media.m).into(binding.imageView)
 
-                var infoText: String = ""
+            var infoText: String = ""
 
-                infoText += "${photo.title}"
-                if(photo.author.isNotEmpty()){
-                    infoText += "\nby ${photo.author}"
-                }
+            infoText += "${photo.title}"
+            if (photo.author.isNotEmpty()) {
+                infoText += "\nby ${photo.author}"
+            }
 
-                binding.title.text = infoText
+            binding.title.text = infoText
 
-                binding.root.setOnClickListener {
-                    listener.onItemClick(photo)
-                }
+            binding.root.setOnClickListener {
+                listener.onItemClick(photo)
             }
         }
+    }
 
     interface OnItemClickListener {
         fun onItemClick(photo: FlickrPhoto)

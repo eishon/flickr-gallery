@@ -25,4 +25,19 @@ object DateTimeUtil {
 
         return dateTime
     }
+
+    fun getMillisFromDateTimeString(dateString: String): Long {
+        val calendar: Calendar = GregorianCalendar()
+
+        val givenFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        try {
+            calendar.time = givenFormat.parse(dateString)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+
+            return 0
+        }
+
+        return calendar.timeInMillis
+    }
 }

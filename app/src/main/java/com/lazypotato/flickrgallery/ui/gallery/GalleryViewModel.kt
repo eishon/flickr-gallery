@@ -8,12 +8,23 @@ class GalleryViewModel constructor(private val repository: GalleryRepository) : 
 
     val loading = MutableLiveData(false)
 
+    val sort = MutableLiveData(Sort.DATE_TAKEN)
+
     val flickrPhotos = currentTag.switchMap { tag ->
-        repository.fetchPhotosUsingTag(tag).asLiveData()
+        repository.fetchPhotosUsingTag(tag)
+            .asLiveData()
     }
 
     fun searchPhotosByTag(tag: String) {
         loading.postValue(true)
         currentTag.postValue(tag)
+    }
+
+    fun sortPhotos() {
+        if(sort.value == Sort.DATE_TAKEN) {
+            sort.postValue(Sort.PUBLISHED)
+        } else {
+            sort.postValue(Sort.DATE_TAKEN)
+        }
     }
 }

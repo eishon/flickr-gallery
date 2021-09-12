@@ -16,6 +16,7 @@ import com.lazypotato.flickrgallery.R
 import com.lazypotato.flickrgallery.data.api.FlickrAPI
 import com.lazypotato.flickrgallery.data.model.FlickrPhoto
 import com.lazypotato.flickrgallery.databinding.FragmentGalleryBinding
+import com.lazypotato.flickrgallery.util.DateTimeUtil
 import com.lazypotato.flickrgallery.util.JSONPConverterUtil.GsonPConverterFactory
 import retrofit2.Retrofit
 
@@ -51,6 +52,10 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
             galleryRecyclerView.itemAnimator = null
             galleryRecyclerView.adapter = adapter
 
+            sortButton.setOnClickListener {
+                viewModel.sortPhotos()
+            }
+
             retryButton.setOnClickListener {
                 viewModel.searchPhotosByTag("")
             }
@@ -62,11 +67,28 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
                 binding.noDataLayout.visibility = View.GONE
                 binding.galleryRecyclerView.visibility = View.VISIBLE
 
-                adapter.photos = data.getOrDefault(listOf())
+                val photoList = data.getOrDefault(listOf())
+
+                photoList.forEach {
+                    it.dateTakenMillis = DateTimeUtil.getMillisFromDateTimeString(it.date_taken)
+                    it.publishedMillis = DateTimeUtil.getMillisFromDateTimeString(it.published)
+                }
+
+                adapter.photos = photoList
             } else {
                 binding.noDataLayout.visibility = View.VISIBLE
                 binding.galleryRecyclerView.visibility = View.GONE
             }
+        }
+
+        viewModel.sort.observe(viewLifecycleOwner) { sort ->
+            if(sort == Sort.DATE_TAKEN) {
+                binding.sortButton.text = "Sort by Published Date"
+            } else {
+                binding.sortButton.text = "Sort by Date Taken"
+            }
+
+            adapter.sortPhotos(sort)
         }
 
         viewModel.loading.observe(viewLifecycleOwner) { loading ->
@@ -99,10 +121,11 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
 
         val searchItem = menu.findItem(R.id.menu_search)
         val searchView = searchItem.actionView as SearchView
-        val clearButton = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+        val clearButton =
+            searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
 
         clearButton.setOnClickListener {
-            if(searchView.query.isEmpty()) {
+            if (searchView.query.isEmpty()) {
                 searchView.isIconified = true;
             } else {
                 viewModel.searchPhotosByTag("")
