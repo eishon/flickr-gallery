@@ -19,12 +19,6 @@ import com.lazypotato.flickrgallery.databinding.FragmentGalleryBinding
 import com.lazypotato.flickrgallery.util.JSONPConverterUtil.GsonPConverterFactory
 import retrofit2.Retrofit
 
-/*
-- Didn't use Hilt as the project is small
-- Didn't implemented other than Unit Test as it was not mentioned in the Tasks
-- Memory Caching is default on Glide, didn't implemented disk cache
- */
-
 class GalleryFragment : Fragment(R.layout.fragment_gallery),
     FlickrPhotoAdapter.OnItemClickListener {
 

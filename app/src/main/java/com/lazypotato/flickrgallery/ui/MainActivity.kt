@@ -13,6 +13,7 @@ import com.lazypotato.flickrgallery.data.api.FlickrAPI
 import com.lazypotato.flickrgallery.util.JSONPConverterUtil.GsonPConverterFactory
 import retrofit2.Retrofit
 
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
