@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.google.gson.Gson
@@ -57,7 +58,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
             galleryRecyclerView.adapter = adapter
 
             retryButton.setOnClickListener {
-
+                viewModel.searchPhotosByTag("")
             }
         }
 
@@ -140,6 +141,7 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
     }
 
     override fun onItemClick(photo: FlickrPhoto) {
-
+        val action = GalleryFragmentDirections.actionGalleryFragmentToDetailsFragment(photo)
+        findNavController().navigate(action)
     }
 }

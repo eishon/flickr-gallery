@@ -58,6 +58,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/com/lazypotato/flickrgallery/ui/details/DetailsFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/com/lazypotato/flickrgallery/ui/gallery/FlickrPhotoAdapter.kt">
           <value>
             <set />
@@ -239,6 +244,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/test/java/com/lazypotato/flickrgallery/util/MainCoroutineScopeRule.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/build.gradle">
           <value>
             <set />
           </value>
