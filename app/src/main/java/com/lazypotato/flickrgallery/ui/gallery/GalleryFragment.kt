@@ -3,16 +3,87 @@ package com.lazypotato.flickrgallery.ui.gallery
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
-import android.widget.SearchView
+import android.view.View
+import android.widget.ImageView
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.google.gson.Gson
 import com.lazypotato.flickrgallery.R
+import com.lazypotato.flickrgallery.data.api.FlickrAPI
+import com.lazypotato.flickrgallery.data.model.FlickrPhoto
+import com.lazypotato.flickrgallery.databinding.FragmentGalleryBinding
+import com.lazypotato.flickrgallery.util.JSONPConverterUtil.GsonPConverterFactory
+import retrofit2.Retrofit
 
-class GalleryFragment : Fragment(R.layout.fragment_gallery) {
+/*
+Didn't use Hilt as the project is small
+ */
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+class GalleryFragment : Fragment(R.layout.fragment_gallery),
+    FlickrPhotoAdapter.OnItemClickListener {
+
+    private lateinit var flickrAPI: FlickrAPI
+
+    private lateinit var viewModel: GalleryViewModel
+
+    private var _binding: FragmentGalleryBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        _binding = FragmentGalleryBinding.bind(view)
+
+        setupAPIService()
+        setUpViewModel()
+
+        val glide = Glide.with(requireActivity()).setDefaultRequestOptions(
+            RequestOptions()
+                .placeholder(R.drawable.placeholder_image)
+                .error(R.drawable.placeholder_image)
+        )
+
+
+        val adapter = FlickrPhotoAdapter(glide, this)
+
+        binding.apply {
+            galleryRecyclerView.setHasFixedSize(true)
+            galleryRecyclerView.itemAnimator = null
+            galleryRecyclerView.adapter = adapter
+
+            retryButton.setOnClickListener {
+
+            }
+        }
+
+        viewModel.flickrPhotos.observe(viewLifecycleOwner) { data ->
+            if (data.isSuccess) {
+                adapter.photos = data.getOrDefault(listOf())
+            } else {
+
+            }
+        }
+
         setHasOptionsMenu(true)
+    }
+
+    private fun setupAPIService() {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(FlickrAPI.BASE_URL)
+            .addConverterFactory(GsonPConverterFactory(Gson()))
+            .build()
+
+        flickrAPI = retrofit.create(FlickrAPI::class.java)
+    }
+
+    private fun setUpViewModel() {
+        val repository = GalleryRepositoryImpl(flickrAPI)
+
+        val viewModelFactory = GalleryViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(GalleryViewModel::class.java)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -22,9 +93,31 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
 
         val searchItem = menu.findItem(R.id.menu_search)
         val searchView = searchItem.actionView as SearchView
+        val clearButton = searchView.findViewById<ImageView>(androidx.appcompat.R.id.search_close_btn)
+
+        clearButton.setOnClickListener {
+            if(searchView.query.isEmpty()) {
+                searchView.isIconified = true;
+            } else {
+                viewModel.searchPhotosByTag("")
+
+                searchView.setQuery("", false);
+            }
+
+        }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
+                var searchTag = ""
+
+                query?.let {
+                    searchTag = it
+                }
+
+                viewModel.searchPhotosByTag(searchTag)
+
+                searchView.clearFocus()
+
                 return true
             }
 
@@ -33,5 +126,9 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery) {
             }
 
         })
+    }
+
+    override fun onItemClick(photo: FlickrPhoto) {
+
     }
 }
