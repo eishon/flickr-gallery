@@ -11,9 +11,9 @@ interface FlickrAPI {
     }
 
     @GET("services/feeds/photos_public.gne")
-    suspend fun searchPhotos(
+    suspend fun fetchPhotosUsingTags(
         @Query("tags") tags: String,
         @Query("format") format: String = "json",
-    ): FlickrFeedResponse
+    ): FlickrFeedResponse?
 
 }
