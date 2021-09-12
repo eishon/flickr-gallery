@@ -9,6 +9,6 @@ Optional Tasks Done
 - Search for images by tag
 - Image caching (Glide Default)
 - Order by date taken or date published
-- Save image to the System Gallery (Tested on Latest Devices)
+- Save image to the System Gallery (Tested on Android Q>= Devices)
 - Open image in system browser
-- Share pictures by email (Tested on Latest Devices)
+- Share pictures by email (Tested on Android Q>= Devices)
