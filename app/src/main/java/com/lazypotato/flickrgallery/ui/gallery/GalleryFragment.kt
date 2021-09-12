@@ -19,7 +19,9 @@ import com.lazypotato.flickrgallery.util.JSONPConverterUtil.GsonPConverterFactor
 import retrofit2.Retrofit
 
 /*
-Didn't use Hilt as the project is small
+- Didn't use Hilt as the project is small
+- Didn't implemented other than Unit Test as it was not mentioned in the Tasks
+- Memory Caching is default on Glide, didn't implemented disk cache
  */
 
 class GalleryFragment : Fragment(R.layout.fragment_gallery),
@@ -60,11 +62,20 @@ class GalleryFragment : Fragment(R.layout.fragment_gallery),
         }
 
         viewModel.flickrPhotos.observe(viewLifecycleOwner) { data ->
+            viewModel.loading.postValue(false)
             if (data.isSuccess) {
+                binding.noDataLayout.visibility = View.GONE
+                binding.galleryRecyclerView.visibility = View.VISIBLE
+
                 adapter.photos = data.getOrDefault(listOf())
             } else {
-
+                binding.noDataLayout.visibility = View.VISIBLE
+                binding.galleryRecyclerView.visibility = View.GONE
             }
+        }
+
+        viewModel.loading.observe(viewLifecycleOwner) { loading ->
+            binding.progressBar.visibility = if (loading) View.VISIBLE else View.GONE
         }
 
         setHasOptionsMenu(true)

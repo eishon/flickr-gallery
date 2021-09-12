@@ -64,7 +64,9 @@ class FlickrPhotoAdapter constructor(
             ) {
                 glide.load(photo.media.m).into(binding.imageView)
 
-                var infoText = "${photo.title}"
+                var infoText: String = ""
+
+                infoText += "${photo.title}"
                 if(photo.author.isNotEmpty()){
                     infoText += "\nby ${photo.author}"
                 }
